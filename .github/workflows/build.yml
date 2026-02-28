@@ -3,18 +3,19 @@ name: Build Windows EXE
 on:
   push:
     branches: [ main ]
+  workflow_dispatch: # โค้ดบรรทัดนี้จะสร้างปุ่มให้เรากดสั่งรันเองได้!
 
 jobs:
   build:
-    runs-on: windows-latest # สั่งให้รันบนเซิร์ฟเวอร์ Windows
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10' # ใช้ Python 3.10
+        python-version: '3.10'
         
     - name: Install dependencies
       run: |
@@ -25,7 +26,7 @@ jobs:
       run: pyinstaller --noconsole --onefile app.py
       
     - name: Upload EXE
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Factory-App-Windows # ชื่อโฟลเดอร์ที่จะให้ดาวน์โหลด
+        name: Factory-App-Windows
         path: dist/app.exe
